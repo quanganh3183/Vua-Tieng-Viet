@@ -7,13 +7,14 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            max-width: 800px;
-            margin: 0 auto;
+            margin: 0;
             padding: 20px;
             background: #f0f0f0;
-            min-height: 100vh;
+            min-height: 80vh;
             display: flex;
             flex-direction: column;
+            align-items: center;
+            justify-content: center;
         }
 
         .container {
@@ -21,7 +22,9 @@
             padding: 20px;
             border-radius: 8px;
             box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-            flex: 1;
+            width: 90%;
+            max-width: 500px;
+            margin: auto;
         }
 
         .input-group {
@@ -40,6 +43,7 @@
             font-size: 16px;
             border: 1px solid #ddd;
             border-radius: 4px;
+            box-sizing: border-box;
         }
 
         button {
@@ -74,6 +78,7 @@
             background: #666;
             padding: 5px 10px;
             font-size: 14px;
+            min-width: 60px;
         }
 
         .copy-btn:hover {
@@ -90,6 +95,7 @@
             padding: 20px 0;
             color: #666;
             font-size: 14px;
+            margin-top: 20px;
         }
 
         footer a {
