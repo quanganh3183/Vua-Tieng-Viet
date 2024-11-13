@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chuyển đổi văn bản</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #f0f0f0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            flex: 1;
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 8px;
+            font-size: 16px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        button {
+            background: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background: #45a049;
+        }
+
+        .output {
+            margin-top: 20px;
+            padding: 10px;
+            background: #f8f8f8;
+            border-radius: 4px;
+        }
+
+        .output-row {
+            display: flex;
+            align-items: center;
+            margin: 5px 0;
+            gap: 10px;
+        }
+
+        .copy-btn {
+            background: #666;
+            padding: 5px 10px;
+            font-size: 14px;
+        }
+
+        .copy-btn:hover {
+            background: #555;
+        }
+
+        .output-text {
+            flex: 1;
+            word-wrap: break-word;
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px 0;
+            color: #666;
+            font-size: 14px;
+        }
+
+        footer a {
+            color: #4CAF50;
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        /* Toast notification */
+        .toast {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0,0,0,0.8);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 4px;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="input-group">
+            <label for="inputText">Nhập văn bản:</label>
+            <input type="text" id="inputText" placeholder="Nhập văn bản cần chuyển đổi">
+        </div>
+        
+        <button onclick="convertText()">Chuyển đổi</button>
+
+        <div class="output">
+            <div class="output-row">
+                <strong>Output 1:</strong>
+                <span id="output1" class="output-text"></span>
+                <button class="copy-btn" onclick="copyText('output1')">Copy</button>
+            </div>
+            <div class="output-row">
+                <strong>Output 2:</strong>
+                <span id="output2" class="output-text"></span>
+                <button class="copy-btn" onclick="copyText('output2')">Copy</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="toast" id="toast">Đã sao chép!</div>
+
+    <footer>
+        Created by <a href="#">QuanhDang</a> &copy; 2024
+    </footer>
+
+    <script>
+        function shuffleArray(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+            return array;
+        }
+
+        function convertText() {
+            const input = document.getElementById('inputText').value;
+            
+            // Output 2: Chuyển thành chữ hoa
+            const output2 = input.toUpperCase();
+            
+            // Output 1: Tách từng ký tự (không bao gồm dấu cách), thêm dấu / và xáo trộn
+            let chars = input.replace(/\s/g, '').split('');
+            chars = shuffleArray(chars);
+            const output1 = chars.map(char => char.toUpperCase()).join('/') + '/';
+
+            document.getElementById('output1').textContent = output1;
+            document.getElementById('output2').textContent = output2;
+        }
+
+        function copyText(elementId) {
+            const text = document.getElementById(elementId).textContent;
+            navigator.clipboard.writeText(text).then(() => {
+                showToast();
+            });
+        }
+
+        function showToast() {
+            const toast = document.getElementById('toast');
+            toast.style.display = 'block';
+            setTimeout(() => {
+                toast.style.display = 'none';
+            }, 2000);
+        }
+    </script>
+</body>
+</html>
